@@ -15,13 +15,15 @@ function buildDom(htmlString) {
 //Splash screen
 function createSplashScreen() {
   splashScreen = buildDom(`
-    <main>
-        <section id="splash-screen">
-            <img src="./images/..." alt="..." />
-            <button id="start-game" class="btn">Kick Off!</button>
-            <button id="info-page" class="btn">More info</button>
-        </section>
-    </main>
+  <main id="game-container">
+  <div class="splash-content">
+    <img class="logo-img" src="./images/logo.svg" alt="..." />
+    <div class="btn-container">
+      <button id="start-game" class="btn">Kick Off!</button>
+      <button id="info-page" class="btn">More info</button>
+    </div>
+  </div>
+</main>
     `);
 
   document.body.appendChild(splashScreen);
@@ -62,14 +64,13 @@ function createGameScreen() {
           <button class="btn" id="main">Back to main page</button>
           <button class="btn" id="end">Go to End Game Page</button>
         </main>
-      <div>hello</div>
         `);
 
   console.log(gameScreen);
   const mainButton = gameScreen.querySelector('#main');
   mainButton.addEventListener('click', backToSplash);
   const endButton = gameScreen.querySelector('#end');
-  endButton.addEventListener('click', endgame);
+  endButton.addEventListener('click', endGame);
 
   document.body.appendChild(gameScreen);
   return gameScreen;
@@ -121,7 +122,13 @@ function removeInfoScreen() {
 //Game State
 function startGame() {
   //Rebuild DOM
-  removeSplashScreen();
+  if (splashScreen) {
+    removeSplashScreen();
+  }
+
+  if (endGameScreen) {
+    removeEndGameScreen();
+  }
   createGameScreen();
 
   //Initialise game instance
