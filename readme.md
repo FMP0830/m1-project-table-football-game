@@ -60,9 +60,8 @@ You can repeat this process as many times as you can in 5 minutes.
 
 ## Task
 
--Setup git & GitHub
--Create and connect files: index.html, style.css, main.js, game.js, player.js, defender.js, ball.js, timer.js
-
+- Setup git & GitHub
+- Create and connect files: index.html, style.css, main.js, game.js, player.js, defender.js, ball.js, timer.js
 - Build Canvas in Dom in main.js
 - Create 3 main screens in main.js
 - Create info screen in html
@@ -77,24 +76,24 @@ You can repeat this process as many times as you can in 5 minutes.
 - Check collisions beween Ball and Goal area to add points to score in game.js
 - Create scoreboard and print it in DOM with goal data in main.js
 - Create Timer constructor and print it to DOM in timer.js
-- End game when Time === 0.
+  - End game when Time === 0.
 - Add audio effects to game:
-- Whistle when clicking on buttons
-- Rumbling noise during game
-- "oooh" scream when ball & defender collision
-- joy scream when scoring
-- Whistle on Timer === 0
+  - Whistle when clicking on buttons
+  - Rumbling noise during game
+  - "oooh" scream when ball & defender collision
+  - joy scream when scoring
+  - Whistle on Timer === 0
 
 ## Links
 
 ### Trello
 
-[Link url](https://trello.com)
+[Link url](https://trello.com/b/BGXV3vrV/m1project)
 
 ### Git
 
 URls for the project repo and deploy
-[Link Repo](http://github.com)
+[Link Repo](https://github.com/FMP0830/m1-project-table-football-game)
 [Link Deploy](http://github.com)
 
 ### Slides
