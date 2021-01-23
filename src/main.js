@@ -29,7 +29,7 @@ function createSplashScreen() {
   document.body.appendChild(splashScreen);
 
   const startGameButton = splashScreen.querySelector('#start-game');
-  startGameButton.addEventListener('click', startGame);
+  startGameButton.addEventListener('click', createLoadingScreen);
 
   const infoButton = splashScreen.querySelector('#info-page');
   infoButton.addEventListener('click', goToInfo);
@@ -39,34 +39,102 @@ function removeSplashScreen() {
   splashScreen.remove();
 }
 
+//Loading page
+function createLoadingScreen() {
+  if (splashScreen) {
+    removeSplashScreen();
+  }
+
+  if (endGameScreen) {
+    removeEndGameScreen();
+  }
+
+  loadingScreen = buildDom(`
+  <main>
+  <div class="loading-screen">
+  <div id="countdown-start" class="in">Ready?</div>
+  <div id="countdown-1" class="out">3</div>
+  <div id="countdown-2" class="out">2</div>
+  <div id="countdown-3" class="out">1</div>
+  <div id="countdown-final" class="out">Go!</div>
+</div>
+</main>
+    `);
+
+  document.body.appendChild(loadingScreen);
+
+  const ready = document.querySelector('#countdown-start');
+  const three = document.querySelector('#countdown-1');
+  const two = document.querySelector('#countdown-2');
+  const one = document.querySelector('#countdown-3');
+  const go = document.querySelector('#countdown-final');
+
+  function loadingAnimation() {
+    setTimeout(function () {
+      ready.classList.remove('in');
+      ready.classList.add('out');
+    }, 1000);
+
+    setTimeout(function () {
+      three.classList.remove('out');
+      three.classList.add('in');
+    }, 2000);
+
+    setTimeout(function () {
+      three.classList.remove('in');
+      three.classList.add('out');
+      two.classList.remove('out');
+      two.classList.add('in');
+    }, 3000);
+
+    setTimeout(function () {
+      two.classList.remove('in');
+      two.classList.add('out');
+      one.classList.remove('out');
+      one.classList.add('in');
+    }, 4000);
+
+    setTimeout(function () {
+      one.classList.remove('in');
+      one.classList.add('out');
+      go.classList.remove('out');
+      go.classList.add('in');
+    }, 5000);
+
+    setTimeout(function () {
+      go.classList.remove('in');
+    }, 6000);
+
+    setTimeout(startGame, 6000);
+  }
+
+  loadingAnimation();
+}
+
+function removeLoadingScreen() {
+  loadingScreen.remove();
+}
+
 //Game Screen
 function createGameScreen() {
+  removeLoadingScreen();
   gameScreen = buildDom(`
-        <main class="game container">
-          <header>
-            <div class="timer">
-              <span class="minDec">0</span>
-              <span class="minUni">0</span>
-              <span>:</span>
-              <span class="secDec">0</span>
-              <span class="secUni">0</span>
-            </div>
+    <main id="game-container">
+      <div class="timer">0</div>
 
-            <div class="score">
-              <span class="label">Score:</span>
-              <span class="value"></span>
-            </div>
-          </header>
+      <div class="score">
+        <span class="label">Score:</span>
+        <span class="goals">0</span>
+      </div>
 
-          <div class="canvas-container">
-            <canvas></canvas>
-          </div>
-          <button class="btn" id="main">Back to main page</button>
-          <button class="btn" id="end">Go to End Game Page</button>
-        </main>
+      <div class="canvas-container">
+        <canvas></canvas>
+      </div>
+      <button class="btn" id="main">Main page</button>
+      <button class="btn" id="end">End Game</button>
+    </main>
         `);
 
-  console.log(gameScreen);
   const mainButton = gameScreen.querySelector('#main');
   mainButton.addEventListener('click', backToSplash);
   const endButton = gameScreen.querySelector('#end');
@@ -83,15 +151,17 @@ function removeGameScreen() {
 //End Game Screen
 function createEndGameScreen(score) {
   endGameScreen = buildDom(`
-    <main>
-      <h1>Time's Up!</h1>
-      <p>Your score: <span> ${score} </span></p>
+  <main>
+    <div class="info-content">
+      <h1 class="timeup">Time's Up!</h1>
+      <p class="final-score">Your score: <span> ${score} </span></p>
       <button class="btn" id="retry">Try Again!</button>
-    </main>
+    </div>
+  </main>
   `);
 
   const button = endGameScreen.querySelector('button');
-  button.addEventListener('click', startGame);
+  button.addEventListener('click', createLoadingScreen);
 
   document.body.appendChild(endGameScreen);
 }
@@ -104,8 +174,26 @@ function removeEndGameScreen() {
 function createInfoScreen() {
   infoScreen = buildDom(`
     <main>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sunt et molestiae harum! Reprehenderit possimus repellendus rerum blanditiis quam minus ut quidem tenetur enim amet quasi et quo fuga, iusto facere omnis expedita eius repellat? Qui nisi consectetur consequatur blanditiis eum modi at porro quae earum. Totam pariatur quos error, corporis rerum cum ipsam ratione eligendi nulla blanditiis inventore consectetur deleniti similique sed quisquam molestias nisi aliquid aspernatur velit porro! Hic maiores praesentium atque maxime sunt, omnis eos rerum ea reprehenderit, laudantium veritatis exercitationem aspernatur perspiciatis. Voluptatem repellendus est rerum. Doloribus delectus vitae iure, inventore rem odio omnis deserunt modi.</p>
-    <button class="btn" id="main">Back to main page</button>
+      <div class="info-content">
+        <ul>
+          <li>Score as many goals as you can in <b>5 minutes</b></li>
+          <li>Use keyboard arrows to move your player</li>
+          <li>
+            <i class="fas fa-long-arrow-alt-left"></i>
+            <i class="fas fa-long-arrow-alt-up"></i>
+            <i class="fas fa-long-arrow-alt-down"></i>
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </li>
+          <li>Shoot the ball with the space bar</li>
+          <li>
+            <i class="fas fa-keyboard"></i>
+          </li>
+          <li>If you hit a defender, try again!</li>
+        </ul>
+        <div class="btn-container">
+          <button class="btn info-btn" id="main">Back</button>
+        </div>
+      </div>
     </main>
     `);
 
@@ -129,19 +217,21 @@ function startGame() {
   if (endGameScreen) {
     removeEndGameScreen();
   }
+
   createGameScreen();
 
   //Initialise game instance
-  //game = new Game();
-  //game.gameScreen = gameScreen;
+  game = new Game();
+  console.log(game);
+  game.gameScreen = gameScreen;
 
   //Start Game Logic and Animation
-  //game.start();
+  game.start();
 }
 
-function endGame() {
+function endGame(score) {
   removeGameScreen();
-  createEndGameScreen();
+  createEndGameScreen(score);
 }
 
 function goToInfo() {
@@ -150,10 +240,8 @@ function goToInfo() {
 }
 
 function backToSplash() {
-  if (infoScreen) {
-    removeInfoScreen();
-  }
-  removeGameScreen();
+  removeInfoScreen();
+  //removeGameScreen();
   //removeEndGameScreen(); // If  there is a go to main page button in EndGame screen, still undecided
   createSplashScreen();
 }

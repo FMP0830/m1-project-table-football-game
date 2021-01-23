@@ -6,22 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Table Football!</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <main id="game-container">
-        <div class="splash-content">
-          <img class="logo-img" src="./images/logo.svg" alt="..." />
-          <div class="btn-container">
-            <button id="start-game" class="btn">Kick Off!</button>
-            <button id="info-page" class="btn">More info</button>
-          </div>
-        </div>
+    <main>
+      <div class="info-content">
+        <h1 class="timeup">Time's Up!</h1>
+        <p class="final-score">Your score: <span> 0 </span></p>
+        <button class="btn" id="retry">Try Again!</button>
+      </div>
     </main>
     <!-- <script src="./src/main.js"></script>
     <script src="./src/game.js"></script>
     <script src="./src/player.js"></script>
     <script src="./src/defender.js"></script>
-    <script src="./src/ball.js"></script>
-    <script src="./src/timer.js"></script> -->
+    <script src="./src/ball.js"></script> -->
+    <script src="./src/timer.js"></script>
   </body>
 </html>
