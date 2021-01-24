@@ -7,7 +7,7 @@ let infoScreen;
 
 //Create DOM Elements from a string representation
 function buildDom(htmlString) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.innerHTML = htmlString;
   return div.children[0];
 }
@@ -28,11 +28,11 @@ function createSplashScreen() {
 
   document.body.appendChild(splashScreen);
 
-  const startGameButton = splashScreen.querySelector('#start-game');
-  startGameButton.addEventListener('click', createLoadingScreen);
+  const startGameButton = splashScreen.querySelector("#start-game");
+  startGameButton.addEventListener("click", createLoadingScreen);
 
-  const infoButton = splashScreen.querySelector('#info-page');
-  infoButton.addEventListener('click', goToInfo);
+  const infoButton = splashScreen.querySelector("#info-page");
+  infoButton.addEventListener("click", goToInfo);
 }
 
 function removeSplashScreen() {
@@ -63,46 +63,46 @@ function createLoadingScreen() {
 
   document.body.appendChild(loadingScreen);
 
-  const ready = document.querySelector('#countdown-start');
-  const three = document.querySelector('#countdown-1');
-  const two = document.querySelector('#countdown-2');
-  const one = document.querySelector('#countdown-3');
-  const go = document.querySelector('#countdown-final');
+  const ready = document.querySelector("#countdown-start");
+  const three = document.querySelector("#countdown-1");
+  const two = document.querySelector("#countdown-2");
+  const one = document.querySelector("#countdown-3");
+  const go = document.querySelector("#countdown-final");
 
   function loadingAnimation() {
     setTimeout(function () {
-      ready.classList.remove('in');
-      ready.classList.add('out');
+      ready.classList.remove("in");
+      ready.classList.add("out");
     }, 1000);
 
     setTimeout(function () {
-      three.classList.remove('out');
-      three.classList.add('in');
+      three.classList.remove("out");
+      three.classList.add("in");
     }, 2000);
 
     setTimeout(function () {
-      three.classList.remove('in');
-      three.classList.add('out');
-      two.classList.remove('out');
-      two.classList.add('in');
+      three.classList.remove("in");
+      three.classList.add("out");
+      two.classList.remove("out");
+      two.classList.add("in");
     }, 3000);
 
     setTimeout(function () {
-      two.classList.remove('in');
-      two.classList.add('out');
-      one.classList.remove('out');
-      one.classList.add('in');
+      two.classList.remove("in");
+      two.classList.add("out");
+      one.classList.remove("out");
+      one.classList.add("in");
     }, 4000);
 
     setTimeout(function () {
-      one.classList.remove('in');
-      one.classList.add('out');
-      go.classList.remove('out');
-      go.classList.add('in');
+      one.classList.remove("in");
+      one.classList.add("out");
+      go.classList.remove("out");
+      go.classList.add("in");
     }, 5000);
 
     setTimeout(function () {
-      go.classList.remove('in');
+      go.classList.remove("in");
     }, 6000);
 
     setTimeout(startGame, 6000);
@@ -137,10 +137,10 @@ function createGameScreen() {
     </main>
         `);
 
-  const mainButton = gameScreen.querySelector('#main');
-  mainButton.addEventListener('click', backToSplash);
-  const endButton = gameScreen.querySelector('#end');
-  endButton.addEventListener('click', endGame);
+  const mainButton = gameScreen.querySelector("#main");
+  mainButton.addEventListener("click", backToSplash);
+  const endButton = gameScreen.querySelector("#end");
+  endButton.addEventListener("click", endGame);
 
   document.body.appendChild(gameScreen);
   return gameScreen;
@@ -179,8 +179,8 @@ function createEndGameScreen(score) {
   </main>
   `);
 
-  const button = endGameScreen.querySelector('button');
-  button.addEventListener('click', createLoadingScreen);
+  const button = endGameScreen.querySelector("button");
+  button.addEventListener("click", createLoadingScreen);
 
   document.body.appendChild(endGameScreen);
 }
@@ -216,8 +216,8 @@ function createInfoScreen() {
     </main>
     `);
 
-  const button = infoScreen.querySelector('button');
-  button.addEventListener('click', backToSplash);
+  const button = infoScreen.querySelector("button");
+  button.addEventListener("click", backToSplash);
 
   document.body.appendChild(infoScreen);
 }
@@ -270,4 +270,4 @@ function backToSplash() {
 }
 
 //On Load
-window.addEventListener('load', createSplashScreen);
+window.addEventListener("load", createSplashScreen);

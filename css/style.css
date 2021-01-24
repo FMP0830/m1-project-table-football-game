@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Digi';
-  src: url('fonts/ds-digib.ttf');
+  font-family: "Digi";
+  src: url("fonts/ds-digib.ttf");
 }
 
 /* RESET & COMMON STYLES */
@@ -9,14 +9,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Digi', monospace;
+  font-family: "Digi", monospace;
 }
 
 main {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url('../images/Game-BG-full.jpg');
+  background-image: url("../images/Game-BG-full.jpg");
   background-size: cover;
   background-position: left 13px top -100px;
 }
@@ -35,7 +35,7 @@ button {
   margin: 5px 100px;
   width: 35%;
   padding: 30px 50px;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   color: #fff;
   text-shadow: 5px 3px rgba(0, 0, 0, 0.6);
   background-color: rgba(86, 125, 70, 0.3);
@@ -44,6 +44,10 @@ button {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button:hover {
@@ -74,8 +78,8 @@ button:focus {
 
 .logo-img {
   margin: 0 auto;
-  width: 80vw;
-  height: 80vw;
+  width: 50vw;
+  height: 50vw;
   animation: float 6s ease-in-out infinite;
 }
 
@@ -172,7 +176,7 @@ button:focus {
   position: absolute;
   float: left;
   left: 0;
-  bottom: 2%;
+  bottom: 0;
   height: 10vh;
   width: 20vw;
 }
@@ -221,8 +225,8 @@ button:focus {
 .info-content li {
   color: #fff;
   text-shadow: 5px 3px rgba(0, 0, 0, 0.6);
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .info-content i {
