@@ -187,6 +187,11 @@ button:focus {
 }
 
 /* END GAME SCREEN STYLES */
+
+#retry {
+  margin: 0 37.5% 6% 37.5%;
+}
+
 .timeup,
 .final-score {
   color: #fff;
@@ -231,7 +236,7 @@ button:focus {
 
 .info-btn {
   /* margin-left: 50%; */
-  margin: 0 37.5%;
+  margin: 0 37.5% 4% 37.5%;
 }
 
 /* BACKGROUND REVERSE MIRROR --> https://codepen.io/joeyhoer/pen/erBLA*/

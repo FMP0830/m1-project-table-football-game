@@ -1,12 +1,12 @@
 class Timer {
   constructor() {
-    this.currentTime = 0;
+    this.currentTime = 10;
     this.intervalId = 0;
   }
 
   startCount(callback) {
     this.intervalId = setInterval(() => {
-      this.currentTime++;
+      this.currentTime--;
     }, 1000);
   }
 
@@ -33,6 +33,7 @@ class Timer {
   }
 
   splitCount() {
+    console.log(this.currentTime)
     return `${this.twoDigitsNumber(this.getMinutes())}:${this.twoDigitsNumber(
       this.getSeconds()
     )}`;
@@ -58,5 +59,3 @@ function loadingAnimation() {
     go.classList.remove('in');
   }, 5000);
 }
-
-test.addEventListener('click', loadingAnimation);

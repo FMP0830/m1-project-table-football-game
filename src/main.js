@@ -120,11 +120,13 @@ function createGameScreen() {
   removeLoadingScreen();
   gameScreen = buildDom(`
     <main id="game-container">
-      <div class="timer">0</div>
+      <div class="timer">
+        <span class="countdown-timer">0</span>
+      </div>
 
       <div class="score">
         <span class="label">Score:</span>
-        <span class="goals">0</span>
+        <span class="score">0</span>
       </div>
 
       <div class="canvas-container">
@@ -148,13 +150,30 @@ function removeGameScreen() {
   gameScreen.remove();
 }
 
+//Time Up Screen
+
+function createTimeUpScreen() {
+  timeUpScreen = buildDom(`
+  <main>
+    <div class="loading-screen">
+    <div id="countdown-start" class="in">Time's Up!</div>
+  </main>
+  `);
+
+  document.body.appendChild(timeUpScreen);
+}
+
+function removeTimeUpScreen() {
+  timeUpScreen.remove();
+}
+
 //End Game Screen
 function createEndGameScreen(score) {
   endGameScreen = buildDom(`
   <main>
     <div class="info-content">
-      <h1 class="timeup">Time's Up!</h1>
-      <p class="final-score">Your score: <span> ${score} </span></p>
+    <p class="final-score">Your score: <span> ${score} </span></p>
+    <p class="final-score">Top scorer: <span> ${score} </span></p>
       <button class="btn" id="retry">Try Again!</button>
     </div>
   </main>
@@ -231,7 +250,11 @@ function startGame() {
 
 function endGame(score) {
   removeGameScreen();
-  createEndGameScreen(score);
+  createTimeUpScreen();
+  setTimeout(function () {
+    removeTimeUpScreen();
+    createEndGameScreen(score);
+  }, 2000);
 }
 
 function goToInfo() {

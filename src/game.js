@@ -7,6 +7,7 @@ class Game {
     this.gameIsOver = false;
     this.gameScreen = null;
     this.score = 0;
+    this.timer = null;
   }
 
   // Create `ctx`, a `ball` and start the Canvas loop
@@ -26,19 +27,29 @@ class Game {
     this.canvas.setAttribute('width', this.containerWidth);
     this.canvas.setAttribute('height', this.containerHeight);
 
+    // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
 
+    // create 4 defenders and place them on screen
     for (let i = 0; i <= 3; i++) {
       let randomX = Math.floor(
         Math.random() *
           (this.canvas.width - (this.canvas.width / 2 - 300) + 1) +
           (this.canvas.width / 2 - 300)
       );
-      let newdefender = new Defender(this.canvas, randomX, Math.random() * 10);
-      this.defenders.push(newdefender);
+
+      let randomSpeed = Math.random() * 10;
+
+      let newDefender = new Defender(this.canvas, randomX, randomSpeed);
+
+      this.defenders.push(newDefender);
     }
 
-    // Add event listener for moving the ball
+    //Create and start the timer
+    this.timer = new Timer();
+    this.timer.startCount();
+
+    // Add event listener for shooting the ball
     function handleKeyDown(event) {
       if (event.key === 'ArrowLeft') {
         this.ball.setDirection('left');
@@ -64,7 +75,9 @@ class Game {
 
   startLoop() {
     const loop = function () {
-      // 1. UPDATE THE STATE OF ball AND defenders
+      // 1. UPDATE THE STATE OF player, ball, defenders, timer AND score
+      this.updateTimer();
+
       // // 2. Check if ball had hit any defender (check all defenders)
       this.checkCollisions();
 
@@ -138,6 +151,17 @@ class Game {
     // Call the `endGame` function from `main` to remove the Game screen
     // and show the Game Over Screen
     endGame(this.score);
+  }
+
+  updateTimer() {
+    this.timerElement = document.querySelector('.countdown-timer');
+    this.timerElement.textContent = this.timer.splitCount();
+    if (this.timer.currentTime < 30) {
+      this.timerElement.style.color = 'red';
+    }
+    if (this.timer.currentTime <= 0) {
+      this.gameOver();
+    }
   }
 
   updateGameStats() {}

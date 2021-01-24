@@ -1,5 +1,3 @@
-'use strict';
-
 class Defender {
   constructor(canvas, x, speed) {
     this.canvas = canvas;
