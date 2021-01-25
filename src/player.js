@@ -11,7 +11,7 @@ class Player {
 
   draw() {
     const img = document.createElement('img');
-    img.src = '../images/Player.svg';
+    img.src = '../images/player.svg';
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 

@@ -11,7 +11,7 @@ class Defender {
 
   draw() {
     const img = document.createElement('img');
-    img.src = '../images/Defender.svg';
+    img.src = '../images/defender.svg';
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
@@ -35,7 +35,7 @@ class Goalkeeper extends Defender {
 
   draw() {
     const img = document.createElement('img');
-    img.src = '../images/Goalie.svg';
+    img.src = '../images/goalie.svg';
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 

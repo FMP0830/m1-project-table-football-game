@@ -246,7 +246,6 @@ function startGame() {
 
   //Initialise game instance
   game = new Game();
-  console.log(game);
   game.gameScreen = gameScreen;
 
   //Start Game Logic and Animation

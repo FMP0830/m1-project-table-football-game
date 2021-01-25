@@ -64,7 +64,7 @@ class Ball {
 
   draw() {
     const img = document.createElement('img');
-    img.src = '../images/Ball.svg';
+    img.src = '../images/ball.svg';
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
     // fillRect(x, y, width, height)
     // this.ctx.fillStyle = '#66D3FA';
