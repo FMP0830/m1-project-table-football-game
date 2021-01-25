@@ -3,6 +3,7 @@ class Game {
     this.canvas = null;
     this.ctx = null;
     this.defenders = [];
+    this.player = null;
     this.ball = null;
     this.gameIsOver = false;
     this.gameScreen = null;
@@ -13,22 +14,23 @@ class Game {
   // Create `ctx`, a `ball` and start the Canvas loop
 
   start() {
-    this.canvasContainer = document.querySelector('.canvas-container');
-    this.canvas = this.gameScreen.querySelector('canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvasContainer = document.querySelector(".canvas-container");
+    this.canvas = this.gameScreen.querySelector("canvas");
+    this.ctx = this.canvas.getContext("2d");
 
     // Save reference to the score and live elements
-    this.livesElement = this.gameScreen.querySelector('.lives .value');
-    this.scoreElement = this.gameScreen.querySelector('.score .value');
+    this.livesElement = this.gameScreen.querySelector(".lives .value");
+    this.scoreElement = this.gameScreen.querySelector(".score .value");
 
     // Set the canvas dimesions to match the parent
     this.containerWidth = this.canvasContainer.offsetWidth;
     this.containerHeight = this.canvasContainer.offsetHeight;
-    this.canvas.setAttribute('width', this.containerWidth);
-    this.canvas.setAttribute('height', this.containerHeight);
+    this.canvas.setAttribute("width", this.containerWidth);
+    this.canvas.setAttribute("height", this.containerHeight);
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
+    this.player = new Player(this.canvas, 50, 1);
 
     // create 4 defenders and place them on screen
     for (let i = 0; i <= 3; i++) {
@@ -37,11 +39,8 @@ class Game {
           (this.canvas.width - (this.canvas.width / 2 - 300) + 1) +
           (this.canvas.width / 2 - 300)
       );
-
       let randomSpeed = Math.random() * 10;
-
       let newDefender = new Defender(this.canvas, randomX, randomSpeed);
-
       this.defenders.push(newDefender);
     }
 
@@ -51,16 +50,25 @@ class Game {
 
     // Add event listener for shooting the ball
     function handleKeyDown(event) {
-      if (event.key === 'ArrowLeft') {
-        this.ball.setDirection('left');
-      } else if (event.key === 'ArrowRight') {
-        this.ball.setDirection('right');
-      } else if (event.key === 'ArrowUp') {
-        this.ball.setDirection('up');
-        this.ball.setDirection('right');
-      } else if (event.key === 'ArrowDown') {
-        this.ball.setDirection('down');
-        this.ball.setDirection('right');
+      if (event.key === "f") {
+        this.ball.setDirection("left");
+      } else if (event.key === "v") {
+        this.ball.setDirection("right");
+      } else if (event.key === "c") {
+        this.ball.setDirection("up");
+        this.ball.setDirection("right");
+      } else if (event.key === "b") {
+        this.ball.setDirection("down");
+        this.ball.setDirection("right");
+      } else if (event.key === "ArrowUp") {
+        this.player.setDirection("up");
+        console.log(this.canvas.height);
+      } else if (event.key === "ArrowDown") {
+        this.player.setDirection("down");
+      } else if (event.key === "ArrowRight") {
+        this.player.setDirection("right");
+      } else if (event.key === "ArrowLeft") {
+        this.player.setDirection("left");
       }
     }
 
@@ -68,7 +76,7 @@ class Game {
     // Therefore, we need to bind `this` to the `game` object,
     // to prevent `this` from referencing the `window` object
     const boundHandleKeyDown = handleKeyDown.bind(this);
-    document.body.addEventListener('keydown', boundHandleKeyDown);
+    document.body.addEventListener("keydown", boundHandleKeyDown);
 
     this.startLoop();
   }
@@ -83,11 +91,7 @@ class Game {
 
       // // 3. Update the ball and check if ball is going off the screen
       this.ball.handleScreenCollision();
-
-      // this.defenders = this.defenders.filter(function (defender) {
-      //   defender.updatePosition();
-      //   return defender.isInsideScreen();
-      // });
+      this.player.updatePosition();
 
       // // 4. Move the existing defenders
       // // 5. Check if any defender is going of the screen
@@ -101,7 +105,7 @@ class Game {
       // 3. UPDATE THE CANVAS
       // // Draw the ball
       this.ball.draw();
-
+      this.player.draw();
       // // Draw the defenders
       this.defenders.forEach(function (defender) {
         defender.draw();
@@ -130,7 +134,7 @@ class Game {
       // We will implement didCollide() in the next step
       if (this.ball.didCollide(defender)) {
         this.ball.removeLife();
-        console.log('lives', this.ball.lives);
+        console.log("lives", this.ball.lives);
 
         // Move the defender off screen to the left
         defender.x = 0 - defender.size;
@@ -154,10 +158,10 @@ class Game {
   }
 
   updateTimer() {
-    this.timerElement = document.querySelector('.countdown-timer');
+    this.timerElement = document.querySelector(".countdown-timer");
     this.timerElement.textContent = this.timer.splitCount();
     if (this.timer.currentTime < 30) {
-      this.timerElement.style.color = 'red';
+      this.timerElement.style.color = "red";
     }
     if (this.timer.currentTime <= 0) {
       this.gameOver();

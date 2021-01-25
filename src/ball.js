@@ -1,7 +1,7 @@
 class Ball {
   constructor(canvas, lives) {
     this.canvas = canvas;
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext("2d");
 
     this.lives = lives;
     this.size = 50;
@@ -14,14 +14,13 @@ class Ball {
 
   setDirection(direction) {
     // +1 down  -1 up
-    if (direction === 'left') this.direction = -1;
-    else if (direction === 'right') this.direction = 1;
-    else if (direction === 'up') this.effect = -1;
-    else if (direction === 'down') this.effect = 1;
+    if (direction === "left") this.direction = -1;
+    else if (direction === "right") this.direction = 1;
+    else if (direction === "up") this.effect = -1;
+    else if (direction === "down") this.effect = 1;
   }
 
   handleScreenCollision() {
-    
     //CURVED SHOT UPWARD
     if (this.effect === -1) {
       this.x = this.x + this.direction * this.speed;
@@ -53,7 +52,6 @@ class Ball {
     const ballTop = this.y;
     const ballBottom = this.y + this.size;
 
-
     if (ballRight > screenRight) this.direction = -1;
     else if (ballLeft < screenLeft) this.direction = 1;
     else if (ballTop < screenTop) this.y = screenTop;
@@ -65,8 +63,8 @@ class Ball {
   }
 
   draw() {
-    const img = document.createElement('img');
-    img.src = '../images/Ball.svg';
+    const img = document.createElement("img");
+    img.src = "../images/Ball.svg";
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
     // fillRect(x, y, width, height)
     // this.ctx.fillStyle = '#66D3FA';
