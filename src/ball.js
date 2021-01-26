@@ -1,7 +1,7 @@
 class Ball {
   constructor(canvas, lives) {
     this.canvas = canvas;
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext("2d");
 
     this.lives = lives;
     this.size = 30;
@@ -14,10 +14,10 @@ class Ball {
 
   setDirection(direction) {
     // +1 down  -1 up
-    if (direction === 'left') this.direction = -1;
-    else if (direction === 'right') this.direction = 1;
-    else if (direction === 'up') this.effect = -1;
-    else if (direction === 'down') this.effect = 1;
+    if (direction === "left") this.direction = -1;
+    else if (direction === "right") this.direction = 1;
+    else if (direction === "up") this.effect = -1;
+    else if (direction === "down") this.effect = 1;
   }
 
   handleScreenCollision() {
@@ -63,12 +63,9 @@ class Ball {
   }
 
   draw() {
-    const img = document.createElement('img');
-    img.src = '../images/ball.svg';
+    const img = document.createElement("img");
+    img.src = "images/ball.svg";
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
-    // fillRect(x, y, width, height)
-    // this.ctx.fillStyle = '#66D3FA';
-    // this.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
 
   didCollide(enemy) {
@@ -86,13 +83,9 @@ class Ball {
 
     // Check if the enemy sides intersect with any of the ball's sides
     const crossLeft = enemyLeft <= ballRight && enemyLeft >= ballLeft;
-
     const crossRight = enemyRight >= ballLeft && enemyRight <= ballRight;
-
     const crossBottom = enemyBottom >= ballTop && enemyBottom <= ballBottom;
-
     const crossTop = enemyTop <= ballBottom && enemyTop >= ballTop;
-
     const shotOutOfScreen = ballRight >= screenRight;
 
     if (
@@ -102,6 +95,31 @@ class Ball {
       return true;
     } else {
       return false;
+    }
+  }
+
+  didAttach(player) {
+    const ballLeft = this.x;
+    const ballRight = this.x + this.size;
+    const ballTop = this.y;
+    const ballBottom = this.y + this.size;
+
+    const playerLeft = player.x;
+    const playerRight = player.x + player.size;
+    const playerTop = player.y;
+    const playerBottom = player.y + player.size;
+
+    // Check if the player sides intersect with any of the ball's sides
+    const didTouchTop = playerBottom === ballTop;
+    const withinPlayer = playerLeft <= ballLeft && playerRight >= ballRight;
+
+    const crossBottom = didTouchTop && withinPlayer;
+
+    if (crossBottom) {
+      console.log(didTouchTop);
+      console.log(withinPlayer);
+      this.x = player.x + player.size;
+      this.y = player.y + player.size / 2;
     }
   }
 
@@ -120,20 +138,20 @@ class Ball {
 
     if (shotOutOfScreen && ballTop >= screenTop && ballBottom <= missedUp) {
       console.log(
-        'ballTop',
+        "ballTop",
         ballTop,
-        'missedUp',
+        "missedUp",
         missedUp,
-        'ballBottom',
+        "ballBottom",
         ballBottom,
-        'missedDown',
+        "missedDown",
         missedDown,
-        'screenTop',
+        "screenTop",
         screenTop,
-        'screenBottom',
+        "screenBottom",
         screenBottom
       );
-      console.log('out above');
+      console.log("out above");
       return false;
     } else if (
       shotOutOfScreen &&
@@ -141,20 +159,20 @@ class Ball {
       ballTop >= missedDown
     ) {
       console.log(
-        'ballTop',
+        "ballTop",
         ballTop,
-        'missedUp',
+        "missedUp",
         missedUp,
-        'ballBottom',
+        "ballBottom",
         ballBottom,
-        'missedDown',
+        "missedDown",
         missedDown,
-        'screenTop',
+        "screenTop",
         screenTop,
-        'screenBottom',
+        "screenBottom",
         screenBottom
       );
-      console.log('out below');
+      console.log("out below");
       return false;
     } else if (
       shotOutOfScreen &&
@@ -162,20 +180,20 @@ class Ball {
       ballBottom <= missedDown
     ) {
       console.log(
-        'ballTop',
+        "ballTop",
         ballTop,
-        'missedUp',
+        "missedUp",
         missedUp,
-        'ballBottom',
+        "ballBottom",
         ballBottom,
-        'missedDown',
+        "missedDown",
         missedDown,
-        'screenTop',
+        "screenTop",
         screenTop,
-        'screenBottom',
+        "screenBottom",
         screenBottom
       );
-      console.log('Goal!');
+      console.log("Goal!");
       return true;
     }
   }
