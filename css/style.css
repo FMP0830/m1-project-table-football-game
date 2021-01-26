@@ -17,7 +17,7 @@ main {
   width: 100vw;
   position: fixed;
   overflow: hidden;
-  background-image: url("../images/game-bg-full.jpg");
+  background-image: url("../images/Game-BG-full.jpg");
   background-size: cover;
   background-position: center right;
   background-repeat: repeat;
