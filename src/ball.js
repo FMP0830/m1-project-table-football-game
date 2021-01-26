@@ -64,7 +64,7 @@ class Ball {
 
   draw() {
     const img = document.createElement("img");
-    img.src = "images/ball.svg";
+    img.src = "images/Ball.svg";
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
