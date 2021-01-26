@@ -151,10 +151,10 @@ class Game {
         console.log('lives', this.ball.lives);
 
         // Move the defender off screen to the left
-        this.ball.x = 381;
+        this.ball.x = Math.floor(this.canvas.width / 4);
         console.log('ball.x', this.ball.x);
         console.log('player.x', this.player.x);
-        this.ball.y = 592;
+        this.ball.y = this.canvas.height / 2;
         console.log('ball.y', this.ball.y);
         console.log('player.y', this.player.y);
         this.ball.direction = 0;
@@ -198,6 +198,9 @@ class Game {
       console.log('player', this.player.x, this.player.y);
       this.ball.x = this.player.x + this.player.size;
       this.ball.y = this.player.y + this.player.size / 2;
+    } else {
+      console.log('ball', this.ball.x, this.ball.y);
+      console.log('player', this.player.x, this.player.y);
     }
   }
 
@@ -227,6 +230,7 @@ class Game {
   updateGameStats() {
     if (this.ball.didScore()) {
       this.score++;
+    } else {
     }
 
     this.currentScore = document.querySelector('#current-score');

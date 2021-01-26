@@ -14,7 +14,7 @@ class Ball {
 
   setDirection(direction) {
     // +1 down  -1 up
-    if (direction === 'left') this.direction = -1;
+    if (direction === 'left') this.direction = 0;
     else if (direction === 'right') this.direction = 1;
     else if (direction === 'right') this.effect = 0;
     else if (direction === 'up') this.effect = -1;
