@@ -5,7 +5,7 @@ class Player {
     this.size = 80;
     this.x = x;
     this.y = canvas.height / 2;
-    this.direction = 1;
+    this.direction = undefined;
     this.speed = speed;
   }
 
@@ -17,13 +17,13 @@ class Player {
 
   setDirection(direction) {
     if (direction === 'up') {
-      this.y -= 1;
+      this.y -= this.speed;
     } else if (direction === 'down') {
-      this.y += 1;
+      this.y += this.speed;
     } else if (direction === 'right') {
-      this.x += 1;
+      this.x += this.speed;
     } else if (direction === 'left') {
-      this.x -= 1;
+      this.x -= this.speed;
     }
   }
 

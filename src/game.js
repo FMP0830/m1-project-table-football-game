@@ -31,7 +31,7 @@ class Game {
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
-    this.player = new Player(this.canvas, 50, 1);
+    this.player = new Player(this.canvas, 50, 5);
 
     // create 4 defenders and place them on screen
     const slot = this.canvas.width / 10;
@@ -63,9 +63,9 @@ class Game {
     function handleKeyDown(event) {
       if (event.key === 'f') {
         this.ball.setDirection('left');
-      } else if (event.key === 'v') {
+      } else if (event.code === 'Space') {
         this.ball.setDirection('right');
-      } else if (event.key === 'c') {
+      } else if (event.key === 'v') {
         this.ball.setDirection('up');
         this.ball.setDirection('right');
       } else if (event.key === 'b') {
@@ -194,6 +194,7 @@ class Game {
       console.log('player', this.player.x, this.player.y);
       this.ball.x = this.player.x + this.player.size;
       this.ball.y = this.player.y + this.player.size / 2;
+      return true;
     } else {
       console.log('ball', this.ball.x, this.ball.y);
       console.log('player', this.player.x, this.player.y);
