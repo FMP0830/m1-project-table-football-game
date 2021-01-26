@@ -15,19 +15,19 @@ class Game {
   // Create `ctx`, a `ball` and start the Canvas loop
 
   start() {
-    this.canvasContainer = document.querySelector(".canvas-container");
-    this.canvas = this.gameScreen.querySelector("canvas");
-    this.ctx = this.canvas.getContext("2d");
+    this.canvasContainer = document.querySelector('.canvas-container');
+    this.canvas = this.gameScreen.querySelector('canvas');
+    this.ctx = this.canvas.getContext('2d');
 
     // Save reference to the score and live elements
-    this.livesElement = this.gameScreen.querySelector(".lives .value");
-    this.scoreElement = this.gameScreen.querySelector(".score .value");
+    this.livesElement = this.gameScreen.querySelector('.lives .value');
+    this.scoreElement = this.gameScreen.querySelector('.score .value');
 
     // Set the canvas dimesions to match the parent
     this.containerWidth = this.canvasContainer.offsetWidth;
     this.containerHeight = this.canvasContainer.offsetHeight;
-    this.canvas.setAttribute("width", this.containerWidth);
-    this.canvas.setAttribute("height", this.containerHeight);
+    this.canvas.setAttribute('width', this.containerWidth);
+    this.canvas.setAttribute('height', this.containerHeight);
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
@@ -61,25 +61,25 @@ class Game {
 
     // Add event listener for shooting the ball
     function handleKeyDown(event) {
-      if (event.key === "f") {
-        this.ball.setDirection("left");
-      } else if (event.key === "v") {
-        this.ball.setDirection("right");
-      } else if (event.key === "c") {
-        this.ball.setDirection("up");
-        this.ball.setDirection("right");
-      } else if (event.key === "b") {
-        this.ball.setDirection("down");
-        this.ball.setDirection("right");
-      } else if (event.key === "ArrowUp") {
-        this.player.setDirection("up");
+      if (event.key === 'f') {
+        this.ball.setDirection('left');
+      } else if (event.key === 'v') {
+        this.ball.setDirection('right');
+      } else if (event.key === 'c') {
+        this.ball.setDirection('up');
+        this.ball.setDirection('right');
+      } else if (event.key === 'b') {
+        this.ball.setDirection('down');
+        this.ball.setDirection('right');
+      } else if (event.key === 'ArrowUp') {
+        this.player.setDirection('up');
         console.log(this.canvas.height);
-      } else if (event.key === "ArrowDown") {
-        this.player.setDirection("down");
-      } else if (event.key === "ArrowRight") {
-        this.player.setDirection("right");
-      } else if (event.key === "ArrowLeft") {
-        this.player.setDirection("left");
+      } else if (event.key === 'ArrowDown') {
+        this.player.setDirection('down');
+      } else if (event.key === 'ArrowRight') {
+        this.player.setDirection('right');
+      } else if (event.key === 'ArrowLeft') {
+        this.player.setDirection('left');
       }
     }
 
@@ -87,7 +87,7 @@ class Game {
     // Therefore, we need to bind `this` to the `game` object,
     // to prevent `this` from referencing the `window` object
     const boundHandleKeyDown = handleKeyDown.bind(this);
-    document.body.addEventListener("keydown", boundHandleKeyDown);
+    document.body.addEventListener('keydown', boundHandleKeyDown);
 
     this.startLoop();
   }
@@ -104,7 +104,7 @@ class Game {
       // // 3. Update the ball and check if ball is going off the screen
       this.ball.handleScreenCollision();
       this.player.updatePosition();
-      this.ball.didAttach(this.player);
+      this.didAttach();
 
       // // 4. Move the existing defenders
       // // 5. Check if any defender is going of the screen
@@ -148,11 +148,15 @@ class Game {
       // We will implement didCollide() in the next step
       if (this.ball.didCollide(defender)) {
         this.ball.removeLife();
-        console.log("lives", this.ball.lives);
+        console.log('lives', this.ball.lives);
 
         // Move the defender off screen to the left
-        this.ball.x = Math.random() * (this.canvas.width / 2);
-        this.ball.y = Math.random() * (this.canvas.height / 2);
+        this.ball.x = 381;
+        console.log('ball.x', this.ball.x);
+        console.log('player.x', this.player.x);
+        this.ball.y = 592;
+        console.log('ball.y', this.ball.y);
+        console.log('player.y', this.player.y);
         this.ball.direction = 0;
 
         if (this.ball.lives === 0) {
@@ -164,42 +168,38 @@ class Game {
     // as array method callbacks `this` value defaults to undefined.
   }
 
-  // getBall() {
-  //   const playerLeft = this.player.x;
-  //   const playerRight = this.player.x + this.player.size;
-  //   const playerTop = this.player.y;
-  //   const playerBottom = this.player.y + this.player.size;
+  didAttach(player) {
+    //define ball & player position
+    let ballLeft = this.ball.x;
+    let ballRight = this.ball.x + this.ball.size;
+    let ballTop = this.ball.y;
+    let ballBottom = this.ball.y + this.ball.size;
 
-  //   const ballLeft = this.ball.x;
-  //   const ballRight = this.ball.x + this.ball.size;
-  //   const ballTop = this.ball.y;
-  //   const ballBottom = this.ball.y + this.ball.size;
+    let playerLeft = this.player.x;
+    let playerRight = this.player.x + this.player.size;
+    let playerTop = this.player.y;
+    let playerBottom = this.player.y + this.player.size;
 
-  //   // console.log("playerLeft", playerLeft);
-  //   // console.log("playerRight", playerRight);
-  //   // console.log("playerTop", playerTop);
-  //   // console.log("playerBottom", playerBottom);
-  //   // console.log("ballLeft", ballLeft);
-  //   // console.log("ballRight", ballRight);
-  //   // console.log("ballTop", ballTop);
-  //   // console.log("ballBottom", ballBottom);
+    // Check if the player sides intersect with any of the ball's sides
+    let didTouchTop = playerBottom === ballTop;
+    let didTouchBottom = playerTop === ballBottom;
+    let didTouchLeft = playerRight === ballLeft;
+    let didTouchRight = playerLeft === ballRight;
+    let withinPlayerWidth = playerLeft <= ballLeft && playerRight >= ballRight;
+    let withinPlayerHeight = playerTop <= ballTop && playerBottom >= ballBottom;
 
-  //   if (
-  //     (playerRight > ballLeft && playerBottom <= ballTop) ||
-  //     (playerRight > ballLeft && playerTop >= ballBottom)
-  //   ) {
-  //     this.ball.y = this.player.y + this.player.size / 2;
-  //     this.ball.x = this.player.x + this.player.size;
-  //     console.log("hey");
-  //   } else if (
-  //     (playerLeft > ballRight && playerBottom <= ballTop) ||
-  //     (playerLeft > ballRight && playerTop >= ballBottom)
-  //   ) {
-  //     this.ball.y = this.player.y + this.player.size / 2;
-  //     this.ball.x = this.player.x + this.player.size;
-  //     console.log("ho");
-  //   }
-  // }
+    let crossBottom = didTouchTop && withinPlayerWidth;
+    let crossTop = didTouchBottom && withinPlayerWidth;
+    let crossLeft = didTouchRight && withinPlayerHeight;
+    let crossRight = didTouchLeft && withinPlayerHeight;
+
+    if (crossBottom || crossTop || crossLeft || crossRight) {
+      console.log('ball', this.ball.x, this.ball.y);
+      console.log('player', this.player.x, this.player.y);
+      this.ball.x = this.player.x + this.player.size;
+      this.ball.y = this.player.y + this.player.size / 2;
+    }
+  }
 
   gameOver() {
     // flag `gameIsOver = true` stops the loop
@@ -211,16 +211,16 @@ class Game {
   }
 
   updateTimer() {
-    this.timerElement = document.querySelector(".countdown-timer");
+    this.timerElement = document.querySelector('.countdown-timer');
     this.timerElement.textContent = this.timer.splitCount();
     if (this.timer.currentTime < 30) {
-      this.timerElement.style.color = "red";
+      this.timerElement.style.color = 'red';
     }
     if (this.timer.currentTime <= 0) {
       this.gameOver();
     }
 
-    this.shotsLeft = document.querySelector(".shots-left");
+    this.shotsLeft = document.querySelector('.shots-left');
     this.shotsLeft.textContent = this.ball.lives;
   }
 
@@ -229,7 +229,7 @@ class Game {
       this.score++;
     }
 
-    this.currentScore = document.querySelector("#current-score");
+    this.currentScore = document.querySelector('#current-score');
     this.currentScore.textContent = this.score;
   }
 }
