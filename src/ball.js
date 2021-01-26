@@ -102,39 +102,6 @@ class Ball {
     }
   }
 
-  // didAttach(player) {
-  //   //define ball & player position
-  //   let ballLeft = this.x;
-  //   let ballRight = this.x + this.size;
-  //   let ballTop = this.y;
-  //   let ballBottom = this.y + this.size;
-
-  //   let playerLeft = player.x;
-  //   let playerRight = player.x + player.size;
-  //   let playerTop = player.y;
-  //   let playerBottom = player.y + player.size;
-
-  //   // Check if the player sides intersect with any of the ball's sides
-  //   let didTouchTop = playerBottom === ballTop;
-  //   let didTouchBottom = playerTop === ballBottom;
-  //   let didTouchLeft = playerRight === ballLeft;
-  //   let didTouchRight = playerLeft === ballRight;
-  //   let withinPlayerWidth = playerLeft <= ballLeft && playerRight >= ballRight;
-  //   let withinPlayerHeight = playerTop <= ballTop && playerBottom >= ballBottom;
-
-  //   let crossBottom = didTouchTop && withinPlayerWidth;
-  //   let crossTop = didTouchBottom && withinPlayerWidth;
-  //   let crossLeft = didTouchRight && withinPlayerHeight;
-  //   let crossRight = didTouchRight && withinPlayerHeight;
-
-  //   if (crossBottom || crossTop || crossLeft || crossRight) {
-  //     console.log(didTouchTop);
-  //     console.log(withinPlayerWidth);
-  //     this.x = player.x + player.size;
-  //     this.y = player.y + player.size / 2;
-  //   }
-  // }
-
   didScore() {
     //check the positions of ball, screen margin and goal
     const screenRight = this.canvas.width;

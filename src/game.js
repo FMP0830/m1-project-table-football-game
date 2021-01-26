@@ -151,12 +151,8 @@ class Game {
         console.log('lives', this.ball.lives);
 
         // Move the defender off screen to the left
-        this.ball.x = Math.floor(this.canvas.width / 4);
-        console.log('ball.x', this.ball.x);
-        console.log('player.x', this.player.x);
-        this.ball.y = this.canvas.height / 2;
-        console.log('ball.y', this.ball.y);
-        console.log('player.y', this.player.y);
+        this.ball.x = Math.floor((Math.random() * this.canvas.width) / 4);
+        this.ball.y = Math.floor((Math.random() * this.canvas.height) / 2);
         this.ball.direction = 0;
 
         if (this.ball.lives === 0) {
