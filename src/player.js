@@ -5,13 +5,13 @@ class Player {
     this.size = 80;
     this.x = x;
     this.y = canvas.height / 2;
-    this.direction = 1;
+    this.direction = undefined;
     this.speed = speed;
   }
 
   draw() {
     const img = document.createElement("img");
-    img.src = "images/player.svg";
+    img.src = "images/Player.svg";
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 

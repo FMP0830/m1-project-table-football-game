@@ -202,6 +202,7 @@ class Game {
       crowdGoalAudio.currentTime = 0;
       crowdGoalAudio.play();
       this.score++;
+    } else {
     }
 
     this.currentScore = document.querySelector("#current-score");

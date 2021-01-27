@@ -67,12 +67,14 @@ class Ball {
   }
 
   draw() {
+    //create ball on screen
     const img = document.createElement("img");
     img.src = "images/ball.svg";
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
   didCollide(enemy) {
+    //check ball and defender position
     const ballLeft = this.x;
     const ballRight = this.x + this.size;
     const ballTop = this.y;
@@ -130,6 +132,7 @@ class Ball {
   }
 
   didScore() {
+    //check the positions of ball, screen margin and goal
     const screenRight = this.canvas.width;
     const screenTop = 0;
     const missedUp = this.canvas.height / 2 - 100;
@@ -142,6 +145,7 @@ class Ball {
 
     const shotOutOfScreen = ballRight >= screenRight;
 
+    //Check if ball leaves the right side of the screen above and below the goal posts
     if (shotOutOfScreen && ballTop >= screenTop && ballBottom <= missedUp) {
       return false;
     } else if (
