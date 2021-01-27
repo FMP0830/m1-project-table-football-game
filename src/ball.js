@@ -14,11 +14,21 @@ class Ball {
 
   setDirection(direction) {
     // +1 down  -1 up
-    if (direction === "left") this.direction = 0;
-    else if (direction === "right") this.direction = 1;
-    else if (direction === "right") this.effect = 0;
-    else if (direction === "up") this.effect = -1;
-    else if (direction === "down") this.effect = 1;
+    switch (direction) {
+      case "left":
+        this.direction = 0;
+        break;
+      case "right":
+        this.direction = 1;
+        this.effect = 0;
+        break;
+      case "up":
+        this.effect = -1;
+        break;
+      case "down":
+        this.effect = 1;
+        break;
+    }
   }
 
   handleScreenCollision() {

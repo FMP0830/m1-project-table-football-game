@@ -66,11 +66,9 @@ class Game {
       } else if (event.key === " ") {
         this.ball.setDirection("right");
       } else if (event.key === "c") {
-        this.ball.setDirection("up");
         this.ball.setDirection("right");
+        this.ball.setDirection("up");
       } else if (event.key === "b") {
-        console.log(this.canvas.height);
-        console.log(this.ball.bottom);
         this.ball.setDirection("right");
         this.ball.setDirection("down");
       } else if (event.key === "ArrowUp") {
