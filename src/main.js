@@ -6,15 +6,16 @@ let endGameScreen;
 let infoScreen;
 
 //Audios
-const whistleAudio = document.querySelector("#referee");
-const crowdBooAudio = document.querySelector("#crowd-boo");
-const crowdGoalAudio = document.querySelector("#crowd-goal");
-const splashNoise = document.querySelector("#splash-noise");
-const gameNoise = document.querySelector("#game-noise");
+const whistleAudio = document.querySelector('#referee');
+const crowdBooAudio = document.querySelector('#crowd-boo');
+const crowdGoalAudio = document.querySelector('#crowd-goal');
+const splashNoise = document.querySelector('#splash-noise');
+const gameNoise = document.querySelector('#game-noise');
+const clockTick = document.querySelector('#clock-tick');
 
 //Create DOM Elements from a string representation
 function buildDom(htmlString) {
-  const div = document.createElement("div");
+  const div = document.createElement('div');
   div.innerHTML = htmlString;
   return div.children[0];
 }
@@ -34,15 +35,16 @@ function createSplashScreen() {
     `);
 
   document.body.appendChild(splashScreen);
+  splashNoise.loop = true;
   splashNoise.volume = 1;
   splashNoise.currentTime = 0;
   splashNoise.play();
 
-  const startGameButton = splashScreen.querySelector("#start-game");
-  startGameButton.addEventListener("click", createLoadingScreen);
+  const startGameButton = splashScreen.querySelector('#start-game');
+  startGameButton.addEventListener('click', createLoadingScreen);
 
-  const infoButton = splashScreen.querySelector("#info-page");
-  infoButton.addEventListener("click", goToInfo);
+  const infoButton = splashScreen.querySelector('#info-page');
+  infoButton.addEventListener('click', goToInfo);
 }
 
 function removeSplashScreen() {
@@ -73,48 +75,54 @@ function createLoadingScreen() {
 
   document.body.appendChild(loadingScreen);
 
-  const ready = document.querySelector("#countdown-start");
-  const three = document.querySelector("#countdown-1");
-  const two = document.querySelector("#countdown-2");
-  const one = document.querySelector("#countdown-3");
-  const go = document.querySelector("#countdown-final");
+  const ready = document.querySelector('#countdown-start');
+  const three = document.querySelector('#countdown-1');
+  const two = document.querySelector('#countdown-2');
+  const one = document.querySelector('#countdown-3');
+  const go = document.querySelector('#countdown-final');
 
   function loadingAnimation() {
     setTimeout(function () {
-      ready.classList.remove("in");
-      ready.classList.add("out");
+      ready.classList.remove('in');
+      ready.classList.add('out');
     }, 1000);
 
     setTimeout(function () {
-      three.classList.remove("out");
-      three.classList.add("in");
+      clockTick.currentTime = 0;
+      clockTick.play();
+      three.classList.remove('out');
+      three.classList.add('in');
     }, 2000);
 
     setTimeout(function () {
-      three.classList.remove("in");
-      three.classList.add("out");
-      two.classList.remove("out");
-      two.classList.add("in");
+      clockTick.currentTime = 0;
+      clockTick.play();
+      three.classList.remove('in');
+      three.classList.add('out');
+      two.classList.remove('out');
+      two.classList.add('in');
     }, 3000);
 
     setTimeout(function () {
-      two.classList.remove("in");
-      two.classList.add("out");
-      one.classList.remove("out");
-      one.classList.add("in");
+      clockTick.currentTime = 0;
+      clockTick.play();
+      two.classList.remove('in');
+      two.classList.add('out');
+      one.classList.remove('out');
+      one.classList.add('in');
     }, 4000);
 
     setTimeout(function () {
-      one.classList.remove("in");
-      one.classList.add("out");
-      go.classList.remove("out");
-      go.classList.add("in");
       whistleAudio.currentTime = 0;
       whistleAudio.play();
+      one.classList.remove('in');
+      one.classList.add('out');
+      go.classList.remove('out');
+      go.classList.add('in');
     }, 5000);
 
     setTimeout(function () {
-      go.classList.remove("in");
+      go.classList.remove('in');
     }, 6000);
 
     setTimeout(startGame, 6000);
@@ -150,6 +158,7 @@ function createGameScreen() {
   document.body.appendChild(gameScreen);
   splashNoise.volume = 0;
   splashNoise.pause();
+  gameNoise.loop = true;
   gameNoise.volume = 1;
   gameNoise.currentTume = 0;
   gameNoise.play();
@@ -179,22 +188,24 @@ function removeTimeUpScreen() {
 }
 
 //End Game Screen
-function createEndGameScreen(score) {
+function createEndGameScreen(score, topScore) {
+  saveScore(score);
+  const maxScore = localStorage.getItem('score');
   endGameScreen = buildDom(`
   <main>
     <div class="info-content">
     <p class="final-score">Your score: <span> ${score} </span></p>
-    <p class="final-score">Top scorer: <span> ${score} </span></p>
+    <p class="final-score">Top scorer: <span> ${maxScore} </span></p>
       <button class="btn" id="retry">Try Again!</button>
     </div>
   </main>
   `);
 
-  const button = endGameScreen.querySelector("button");
-  button.addEventListener("click", createLoadingScreen);
+  const button = endGameScreen.querySelector('button');
+  button.addEventListener('click', createLoadingScreen);
 
   document.body.appendChild(endGameScreen);
-  gamehNoise.volume = 0;
+  gameNoise.volume = 0;
   gameNoise.pause();
   splashNoise.volume = 1;
   splashNoise.currentTume = 0;
@@ -212,6 +223,7 @@ function createInfoScreen() {
       <div class="info-content">
         <ul>
           <li>Score as many goals as you can in <b>5 minutes</b></li>
+          <br>
           <li>Use keyboard arrows to move your player</li>
           <li>
             <i class="fas fa-long-arrow-alt-left"></i>
@@ -219,10 +231,14 @@ function createInfoScreen() {
             <i class="fas fa-long-arrow-alt-down"></i>
             <i class="fas fa-long-arrow-alt-right"></i>
           </li>
-          <li>Shoot the ball with the space bar</li>
-          <li>
-            <i class="fas fa-keyboard"></i>
-          </li>
+          <br>
+          <li>Shoot the ball with the space bar for a straight shot </li>
+          <li><i class="fas fa-keyboard"></i></li>
+          <br>
+          <li>Shoot in a straight diagonal up or down <i class="fas fa-long-arrow-alt-right diagonal-up"></i>
+          <i class="fas fa-long-arrow-alt-right diagonal-down"></i></li>
+          <li>with Control Left and Control Right</li>
+          <br>
           <li>If you hit a defender, try again!</li>
         </ul>
         <div class="btn-container">
@@ -232,8 +248,8 @@ function createInfoScreen() {
     </main>
     `);
 
-  const button = infoScreen.querySelector("button");
-  button.addEventListener("click", backToSplash);
+  const button = infoScreen.querySelector('button');
+  button.addEventListener('click', backToSplash);
 
   document.body.appendChild(infoScreen);
 }
@@ -286,5 +302,25 @@ function backToSplash() {
   createSplashScreen();
 }
 
+function saveScore(score) {
+  const scoreStr = localStorage.getItem('score');
+  let topScore;
+  const newScore = score;
+
+  //Add new score
+  if (!scoreStr) {
+    topScore = score;
+  } else {
+    if (newScore > scoreStr) {
+      topScore = newScore;
+    } else {
+      topScore = scoreStr;
+    }
+  }
+
+  //Store Back the updated score
+  localStorage.setItem('score', topScore);
+}
+
 //On Load
-window.addEventListener("load", createSplashScreen);
+window.addEventListener('load', createSplashScreen);

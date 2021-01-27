@@ -19,7 +19,7 @@ class Timer {
   }
 
   twoDigitsNumber(number) {
-    return ("0" + number).slice(-2);
+    return ('0' + number).slice(-2);
   }
 
   stopCount() {
@@ -40,21 +40,21 @@ class Timer {
 }
 
 //Loading Screen Timer animation
-const ready = document.querySelector("#countdown-start");
-const go = document.querySelector("#countdown-final");
+const ready = document.querySelector('#countdown-start');
+const go = document.querySelector('#countdown-final');
 
 function loadingAnimation() {
   setTimeout(function () {
     console.log(ready);
     console.log(go);
-    ready.classList.remove("in");
-    ready.classList.add("out");
+    ready.classList.remove('in');
+    ready.classList.add('out');
   }, 1000);
   setTimeout(function () {
-    go.classList.remove("out");
-    go.classList.add("in");
+    go.classList.remove('out');
+    go.classList.add('in');
   }, 3000);
   setTimeout(function () {
-    go.classList.remove("in");
+    go.classList.remove('in');
   }, 5000);
 }

@@ -3,8 +3,8 @@
   src: url("fonts/ds-digib.ttf");
 } */
 
-@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 /* RESET & COMMON STYLES */
 
@@ -12,7 +12,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "VT323", monospace;
+  font-family: 'VT323', monospace;
 }
 
 main {
@@ -20,7 +20,7 @@ main {
   width: 100vw;
   position: fixed;
   overflow: hidden;
-  background-image: url("../images/background.jpg");
+  background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center right;
   background-repeat: repeat;
@@ -245,4 +245,12 @@ button:focus {
 
 .info-btn {
   margin: 0 37.5% 4% 37.5%;
+}
+
+.diagonal-up {
+  transform: rotate(-45deg);
+}
+
+.diagonal-down {
+  transform: rotate(45deg);
 }

@@ -14,19 +14,19 @@ class Game {
 
   start() {
     //Create canvas and context
-    this.canvasContainer = document.querySelector(".canvas-container");
-    this.canvas = this.gameScreen.querySelector("canvas");
-    this.ctx = this.canvas.getContext("2d");
+    this.canvasContainer = document.querySelector('.canvas-container');
+    this.canvas = this.gameScreen.querySelector('canvas');
+    this.ctx = this.canvas.getContext('2d');
 
     // Save reference to the score and live elements
-    this.livesElement = this.gameScreen.querySelector(".lives .value");
-    this.scoreElement = this.gameScreen.querySelector(".score .value");
+    this.livesElement = this.gameScreen.querySelector('.lives .value');
+    this.scoreElement = this.gameScreen.querySelector('.score .value');
 
     // Set the canvas dimesions to match the parent
     this.containerWidth = this.canvasContainer.offsetWidth;
     this.containerHeight = this.canvasContainer.offsetHeight;
-    this.canvas.setAttribute("width", this.containerWidth);
-    this.canvas.setAttribute("height", this.containerHeight);
+    this.canvas.setAttribute('width', this.containerWidth);
+    this.canvas.setAttribute('height', this.containerHeight);
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
@@ -63,30 +63,30 @@ class Game {
 
     // Add event listener for moving the player and shooting the ball
     function handleKeyDown(event) {
-      if (event.key === "f") {
-        this.ball.setDirection("left");
-      } else if (event.key === " ") {
-        this.ball.setDirection("right");
-      } else if (event.key === "c") {
-        this.ball.setDirection("right");
-        this.ball.setDirection("up");
-      } else if (event.key === "b") {
-        this.ball.setDirection("right");
-        this.ball.setDirection("down");
-      } else if (event.key === "ArrowUp") {
-        this.player.setDirection("up");
-      } else if (event.key === "ArrowDown") {
-        this.player.setDirection("down");
-      } else if (event.key === "ArrowRight") {
-        this.player.setDirection("right");
-      } else if (event.key === "ArrowLeft") {
-        this.player.setDirection("left");
+      if (event.key === 'f') {
+        this.ball.setDirection('left');
+      } else if (event.key === ' ') {
+        this.ball.setDirection('right');
+      } else if (event.code === 'ControlLeft') {
+        this.ball.setDirection('right');
+        this.ball.setDirection('up');
+      } else if (event.code === 'ControlRight') {
+        this.ball.setDirection('right');
+        this.ball.setDirection('down');
+      } else if (event.key === 'ArrowUp') {
+        this.player.setDirection('up');
+      } else if (event.key === 'ArrowDown') {
+        this.player.setDirection('down');
+      } else if (event.key === 'ArrowRight') {
+        this.player.setDirection('right');
+      } else if (event.key === 'ArrowLeft') {
+        this.player.setDirection('left');
       }
     }
 
     //Bind this to KeyDowns
     const boundHandleKeyDown = handleKeyDown.bind(this);
-    document.body.addEventListener("keydown", boundHandleKeyDown);
+    document.body.addEventListener('keydown', boundHandleKeyDown);
 
     //StartLoop
     this.startLoop();
@@ -178,10 +178,10 @@ class Game {
   }
 
   updateTimer() {
-    this.timerElement = document.querySelector(".countdown-timer");
+    this.timerElement = document.querySelector('.countdown-timer');
     this.timerElement.textContent = this.timer.splitCount();
     if (this.timer.currentTime < 30) {
-      this.timerElement.style.color = "red";
+      this.timerElement.style.color = 'red';
     }
     if (this.timer.currentTime <= 0) {
       this.gameOver();
@@ -199,7 +199,7 @@ class Game {
     } else {
     }
 
-    this.currentScore = document.querySelector("#current-score");
+    this.currentScore = document.querySelector('#current-score');
     this.currentScore.textContent = this.score;
   }
 }
