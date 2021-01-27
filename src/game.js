@@ -69,8 +69,10 @@ class Game {
         this.ball.setDirection("up");
         this.ball.setDirection("right");
       } else if (event.key === "b") {
-        this.ball.setDirection("down");
+        console.log(this.canvas.height);
+        console.log(this.ball.bottom);
         this.ball.setDirection("right");
+        this.ball.setDirection("down");
       } else if (event.key === "ArrowUp") {
         this.player.setDirection("up");
       } else if (event.key === "ArrowDown") {

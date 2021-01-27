@@ -14,8 +14,9 @@ class Ball {
 
   setDirection(direction) {
     // +1 down  -1 up
-    if (direction === "left") this.direction = -1;
+    if (direction === "left") this.direction = 0;
     else if (direction === "right") this.direction = 1;
+    else if (direction === "right") this.effect = 0;
     else if (direction === "up") this.effect = -1;
     else if (direction === "down") this.effect = 1;
   }
@@ -37,9 +38,10 @@ class Ball {
       } else if (this.x >= this.canvas.width / 2) {
         this.y = this.y - this.direction * 2;
       }
-    } else {
+    } else if (this.effect === 0) {
       //STRAIGHT SHOT
       this.x = this.x + this.direction * this.speed;
+      this.y = this.y + this.direction * this.effect;
     }
 
     const screenLeft = 0;
@@ -55,7 +57,7 @@ class Ball {
     if (ballRight > screenRight) this.direction = -1;
     else if (ballLeft < screenLeft) this.direction = 1;
     else if (ballTop < screenTop) this.y = screenTop;
-    else if (ballBottom > screenBottom) this.y = ballBottom;
+    else if (ballBottom > screenBottom) this.y = screenBottom - this.size;
   }
 
   removeLife() {
