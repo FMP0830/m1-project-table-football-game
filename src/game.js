@@ -147,9 +147,6 @@ class Game {
     this.defenders.forEach(function (defender) {
       // We will implement didCollide() in the next step
       if (this.ball.didCollide(defender)) {
-        // this.ball.removeLife();
-        // console.log("lives", this.ball.lives);
-
         // Respawn the ball into the screen
         this.ball.x = Math.random() * (this.canvas.width / 2);
         this.ball.y = Math.random() * this.canvas.height;
@@ -189,9 +186,6 @@ class Game {
     if (this.timer.currentTime <= 0) {
       this.gameOver();
     }
-
-    this.shotsLeft = document.querySelector(".shots-left");
-    this.shotsLeft.textContent = this.ball.lives;
   }
 
   updateGameStats() {

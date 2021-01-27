@@ -64,7 +64,7 @@ class Goal {
 
   draw() {
     this.ctx.beginPath();
-    this.ctx.fillStyle = "red";
+    this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.stroke();
   }
