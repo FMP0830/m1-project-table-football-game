@@ -9,6 +9,8 @@ let infoScreen;
 const whistleAudio = document.querySelector("#referee");
 const crowdBooAudio = document.querySelector("#crowd-boo");
 const crowdGoalAudio = document.querySelector("#crowd-goal");
+const splashNoise = document.querySelector("#splash-noise");
+const gameNoise = document.querySelector("#game-noise");
 
 //Create DOM Elements from a string representation
 function buildDom(htmlString) {
@@ -32,6 +34,9 @@ function createSplashScreen() {
     `);
 
   document.body.appendChild(splashScreen);
+  splashNoise.volume = 1;
+  splashNoise.currentTime = 0;
+  splashNoise.play();
 
   const startGameButton = splashScreen.querySelector("#start-game");
   startGameButton.addEventListener("click", createLoadingScreen);
@@ -131,11 +136,6 @@ function createGameScreen() {
         <span class="countdown-timer">0</span>
       </div>
 
-      <div class="shots-counter">
-        <span class="label">Shots left:</span>
-        <span class="shots-left">0</span>
-      </div>
-
       <div class="score">
         <span class="label">Score:</span>
         <span id="current-score">0</span>
@@ -144,17 +144,16 @@ function createGameScreen() {
       <div class="canvas-container">
         <canvas></canvas>
       </div>
-      <button class="btn" id="main">Main page</button>
-      <button class="btn" id="end">End Game</button>
     </main>
         `);
 
-  const mainButton = gameScreen.querySelector("#main");
-  mainButton.addEventListener("click", backToSplash);
-  const endButton = gameScreen.querySelector("#end");
-  endButton.addEventListener("click", endGame);
-
   document.body.appendChild(gameScreen);
+  splashNoise.volume = 0;
+  splashNoise.pause();
+  gameNoise.volume = 1;
+  gameNoise.currentTume = 0;
+  gameNoise.play();
+
   return gameScreen;
 }
 
@@ -195,6 +194,11 @@ function createEndGameScreen(score) {
   button.addEventListener("click", createLoadingScreen);
 
   document.body.appendChild(endGameScreen);
+  gamehNoise.volume = 0;
+  gameNoise.pause();
+  splashNoise.volume = 1;
+  splashNoise.currentTume = 0;
+  splashNoise.play();
 }
 
 function removeEndGameScreen() {

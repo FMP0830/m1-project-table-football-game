@@ -1,6 +1,6 @@
 class Timer {
   constructor() {
-    this.currentTime = 1000;
+    this.currentTime = 300;
     this.intervalId = 0;
   }
 

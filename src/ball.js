@@ -123,8 +123,6 @@ class Ball {
     const crossRight = withinPlayerHeight && playerRight >= ballLeft;
 
     if (crossRight) {
-      console.log("withinPlayerHeight", withinPlayerHeight);
-      console.log("withinPlayerWidth", withinPlayerWidth);
       this.x = player.x + player.size;
       this.y = player.y + player.size / 2 - 20;
       return true;
