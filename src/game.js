@@ -12,9 +12,8 @@ class Game {
     this.timer = null;
   }
 
-  // Create `ctx`, a `ball` and start the Canvas loop
-
   start() {
+    //Create canvas and context
     this.canvasContainer = document.querySelector(".canvas-container");
     this.canvas = this.gameScreen.querySelector("canvas");
     this.ctx = this.canvas.getContext("2d");
@@ -47,6 +46,7 @@ class Game {
       this.defenders.push(newDefender);
     }
 
+    //Create Goalkeeper
     let newGoalie = new Goalkeeper(
       this.canvas,
       this.canvas.width - slot / 2,
@@ -54,12 +54,14 @@ class Game {
     );
     this.defenders.push(newGoalie);
 
+    //Create Goal Frame
     this.goal = new Goal(this.canvas);
+
     //Create and start the timer
     this.timer = new Timer();
     this.timer.startCount();
 
-    // Add event listener for shooting the ball
+    // Add event listener for moving the player and shooting the ball
     function handleKeyDown(event) {
       if (event.key === "f") {
         this.ball.setDirection("left");
@@ -82,12 +84,11 @@ class Game {
       }
     }
 
-    // Any function provided to eventListener is always invoked by the `window` global object
-    // Therefore, we need to bind `this` to the `game` object,
-    // to prevent `this` from referencing the `window` object
+    //Bind this to KeyDowns
     const boundHandleKeyDown = handleKeyDown.bind(this);
     document.body.addEventListener("keydown", boundHandleKeyDown);
 
+    //StartLoop
     this.startLoop();
   }
 

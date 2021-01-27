@@ -35,19 +35,11 @@ class Ball {
     //CURVED SHOT UPWARD
     if (this.effect === -1) {
       this.x = this.x + this.direction * this.speed;
-      if (this.x < this.canvas.width / 2) {
-        this.y = this.y - this.direction * 2;
-      } else if (this.x >= this.canvas.width / 2) {
-        this.y = this.y + this.direction * 2;
-      }
+      this.y = this.y - this.direction * 1.75;
     } else if (this.effect === 1) {
       //CURVED SHOT DOWNWARD
       this.x = this.x + this.direction * this.speed;
-      if (this.x < this.canvas.width / 2) {
-        this.y = this.y + this.direction * 2;
-      } else if (this.x >= this.canvas.width / 2) {
-        this.y = this.y - this.direction * 2;
-      }
+      this.y = this.y + this.direction * 1.75;
     } else if (this.effect === 0) {
       //STRAIGHT SHOT
       this.x = this.x + this.direction * this.speed;
