@@ -31,7 +31,7 @@ class Game {
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
-    this.player = new Player(this.canvas, 50, 1);
+    this.player = new Player(this.canvas, 50, 5);
 
     // create 4 defenders and place them on screen
     const slot = this.canvas.width / 10;
@@ -63,7 +63,7 @@ class Game {
     function handleKeyDown(event) {
       if (event.key === "f") {
         this.ball.setDirection("left");
-      } else if (event.key === "v") {
+      } else if (event.key === " ") {
         this.ball.setDirection("right");
       } else if (event.key === "c") {
         this.ball.setDirection("up");
@@ -73,7 +73,6 @@ class Game {
         this.ball.setDirection("right");
       } else if (event.key === "ArrowUp") {
         this.player.setDirection("up");
-        console.log(this.canvas.height);
       } else if (event.key === "ArrowDown") {
         this.player.setDirection("down");
       } else if (event.key === "ArrowRight") {
@@ -99,12 +98,12 @@ class Game {
       this.ball.didScore();
 
       // // 2. Check if ball had hit any defender (check all defenders)
+      this.ball.didAttach(this.player);
       this.checkCollisions();
 
       // // 3. Update the ball and check if ball is going off the screen
       this.ball.handleScreenCollision();
-      this.player.updatePosition();
-      this.ball.didAttach(this.player);
+      this.player.updatePosition(this.ball);
 
       // // 4. Move the existing defenders
       // // 5. Check if any defender is going of the screen
@@ -147,13 +146,20 @@ class Game {
     this.defenders.forEach(function (defender) {
       // We will implement didCollide() in the next step
       if (this.ball.didCollide(defender)) {
-        this.ball.removeLife();
-        console.log("lives", this.ball.lives);
+        // this.ball.removeLife();
+        // console.log("lives", this.ball.lives);
 
-        // Move the defender off screen to the left
+        // Respawn the ball into the screen
         this.ball.x = Math.random() * (this.canvas.width / 2);
-        this.ball.y = Math.random() * (this.canvas.height / 2);
+        this.ball.y = Math.random() * this.canvas.height;
         this.ball.direction = 0;
+        crowdBooAudio.volume = 1;
+        crowdBooAudio.currentTime = 0;
+        crowdBooAudio.play();
+        setTimeout(function () {
+          crowdBooAudio.pause();
+          crowdBooAudio.currentTime = 0;
+        }, 2000);
 
         if (this.ball.lives === 0) {
           this.gameOver();
@@ -163,43 +169,6 @@ class Game {
     // We have to bind `this`
     // as array method callbacks `this` value defaults to undefined.
   }
-
-  // getBall() {
-  //   const playerLeft = this.player.x;
-  //   const playerRight = this.player.x + this.player.size;
-  //   const playerTop = this.player.y;
-  //   const playerBottom = this.player.y + this.player.size;
-
-  //   const ballLeft = this.ball.x;
-  //   const ballRight = this.ball.x + this.ball.size;
-  //   const ballTop = this.ball.y;
-  //   const ballBottom = this.ball.y + this.ball.size;
-
-  //   // console.log("playerLeft", playerLeft);
-  //   // console.log("playerRight", playerRight);
-  //   // console.log("playerTop", playerTop);
-  //   // console.log("playerBottom", playerBottom);
-  //   // console.log("ballLeft", ballLeft);
-  //   // console.log("ballRight", ballRight);
-  //   // console.log("ballTop", ballTop);
-  //   // console.log("ballBottom", ballBottom);
-
-  //   if (
-  //     (playerRight > ballLeft && playerBottom <= ballTop) ||
-  //     (playerRight > ballLeft && playerTop >= ballBottom)
-  //   ) {
-  //     this.ball.y = this.player.y + this.player.size / 2;
-  //     this.ball.x = this.player.x + this.player.size;
-  //     console.log("hey");
-  //   } else if (
-  //     (playerLeft > ballRight && playerBottom <= ballTop) ||
-  //     (playerLeft > ballRight && playerTop >= ballBottom)
-  //   ) {
-  //     this.ball.y = this.player.y + this.player.size / 2;
-  //     this.ball.x = this.player.x + this.player.size;
-  //     console.log("ho");
-  //   }
-  // }
 
   gameOver() {
     // flag `gameIsOver = true` stops the loop
@@ -226,6 +195,11 @@ class Game {
 
   updateGameStats() {
     if (this.ball.didScore()) {
+      crowdBooAudio.volume = 0;
+      crowdBooAudio.pause();
+      crowdGoalAudio.volume = 1;
+      crowdGoalAudio.currentTime = 0;
+      crowdGoalAudio.play();
       this.score++;
     }
 

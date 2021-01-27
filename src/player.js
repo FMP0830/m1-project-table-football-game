@@ -17,17 +17,17 @@ class Player {
 
   setDirection(direction) {
     if (direction === "up") {
-      this.y -= 5;
+      this.y -= this.speed;
     } else if (direction === "down") {
-      this.y += 5;
+      this.y += this.speed;
     } else if (direction === "right") {
-      this.x += 5;
+      this.x += this.speed;
     } else if (direction === "left") {
-      this.x -= 5;
+      this.x -= this.speed;
     }
   }
 
-  updatePosition() {
+  updatePosition(ball) {
     const screenLeft = 0;
     const screenRight = this.canvas.width / 2;
     const screenTop = 0;
@@ -42,5 +42,7 @@ class Player {
     else if (playerLeft < screenLeft) this.x = screenLeft;
     else if (playerTop < screenTop) this.y = 0;
     if (playerBottom > screenBottom) this.y = screenBottom - 100;
+
+    ball.didAttach(this);
   }
 }

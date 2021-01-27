@@ -109,17 +109,19 @@ class Ball {
     const playerTop = player.y;
     const playerBottom = player.y + player.size;
 
-    // Check if the player sides intersect with any of the ball's sides
-    const didTouchTop = playerBottom === ballTop;
-    const withinPlayer = playerLeft <= ballLeft && playerRight >= ballRight;
+    const withinPlayerWidth =
+      playerLeft <= ballLeft && playerRight >= ballRight;
+    const withinPlayerHeight =
+      playerBottom >= ballBottom && playerTop <= ballTop;
 
-    const crossBottom = didTouchTop && withinPlayer;
+    const crossRight = withinPlayerHeight && playerRight >= ballLeft;
 
-    if (crossBottom) {
-      console.log(didTouchTop);
-      console.log(withinPlayer);
+    if (crossRight) {
+      console.log("withinPlayerHeight", withinPlayerHeight);
+      console.log("withinPlayerWidth", withinPlayerWidth);
       this.x = player.x + player.size;
-      this.y = player.y + player.size / 2;
+      this.y = player.y + player.size / 2 - 20;
+      return true;
     }
   }
 
@@ -137,63 +139,18 @@ class Ball {
     const shotOutOfScreen = ballRight >= screenRight;
 
     if (shotOutOfScreen && ballTop >= screenTop && ballBottom <= missedUp) {
-      console.log(
-        "ballTop",
-        ballTop,
-        "missedUp",
-        missedUp,
-        "ballBottom",
-        ballBottom,
-        "missedDown",
-        missedDown,
-        "screenTop",
-        screenTop,
-        "screenBottom",
-        screenBottom
-      );
-      console.log("out above");
       return false;
     } else if (
       shotOutOfScreen &&
       ballBottom <= screenBottom &&
       ballTop >= missedDown
     ) {
-      console.log(
-        "ballTop",
-        ballTop,
-        "missedUp",
-        missedUp,
-        "ballBottom",
-        ballBottom,
-        "missedDown",
-        missedDown,
-        "screenTop",
-        screenTop,
-        "screenBottom",
-        screenBottom
-      );
-      console.log("out below");
       return false;
     } else if (
       shotOutOfScreen &&
       ballTop >= missedUp &&
       ballBottom <= missedDown
     ) {
-      console.log(
-        "ballTop",
-        ballTop,
-        "missedUp",
-        missedUp,
-        "ballBottom",
-        ballBottom,
-        "missedDown",
-        missedDown,
-        "screenTop",
-        screenTop,
-        "screenBottom",
-        screenBottom
-      );
-      console.log("Goal!");
       return true;
     }
   }
