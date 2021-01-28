@@ -1,5 +1,5 @@
 class Player {
-  constructor(canvas, x, speed) {
+  constructor(canvas, x, speed, sprite) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.size = 80;
@@ -7,11 +7,12 @@ class Player {
     this.y = canvas.height / 2;
     this.direction = undefined;
     this.speed = speed;
+    this.sprite = sprite;
   }
 
   draw() {
     const img = document.createElement("img");
-    img.src = "images/Player.svg";
+    img.src = `images/player${this.sprite}.svg`;
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
