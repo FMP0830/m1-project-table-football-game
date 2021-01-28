@@ -30,10 +30,14 @@ class Game {
 
     // Create and place the ball on screen
     this.ball = new Ball(this.canvas, 30);
-    this.player = new Player(this.canvas, 50, 5);
 
-    // create 4 defenders and place them on screen
+    //Create player, choose random sprite and place on screen
+    const randomPlayerSprite = Math.floor(Math.random() * 4);
+    this.player = new Player(this.canvas, 50, 5, randomPlayerSprite);
+
+    // create 4 defenders, choose random sprite and place them on screen
     const slot = this.canvas.width / 10;
+    const randomDefenderSprite = Math.floor(Math.random() * 14);
     for (let i = 0; i <= 3; i++) {
       let randomX =
         Math.floor(Math.random() * slot) -
@@ -42,15 +46,22 @@ class Game {
         slot * i +
         50;
       let randomSpeed = Math.random() * 3 + 2;
-      let newDefender = new Defender(this.canvas, randomX, randomSpeed);
+      let newDefender = new Defender(
+        this.canvas,
+        randomX,
+        randomSpeed,
+        randomDefenderSprite
+      );
       this.defenders.push(newDefender);
     }
 
-    //Create Goalkeeper
+    //Create Goalkeeper, choose random sprite and place on screen
+    const randomGoalieSprite = Math.floor(Math.random() * 4);
     let newGoalie = new Goalkeeper(
       this.canvas,
       this.canvas.width - slot / 2,
-      3
+      3,
+      randomGoalieSprite
     );
     this.defenders.push(newGoalie);
 

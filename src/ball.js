@@ -1,7 +1,7 @@
 class Ball {
   constructor(canvas, lives) {
     this.canvas = canvas;
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvas.getContext('2d');
 
     this.lives = lives;
     this.size = 30;
@@ -15,17 +15,17 @@ class Ball {
   setDirection(direction) {
     // +1 down  -1 up
     switch (direction) {
-      case "left":
+      case 'left':
         this.direction = 0;
         break;
-      case "right":
+      case 'right':
         this.direction = 1;
         this.effect = 0;
         break;
-      case "up":
+      case 'up':
         this.effect = -1;
         break;
-      case "down":
+      case 'down':
         this.effect = 1;
         break;
     }
@@ -68,8 +68,8 @@ class Ball {
 
   draw() {
     //create ball on screen
-    const img = document.createElement("img");
-    img.src = "images/ball.svg";
+    const img = document.createElement('img');
+    img.src = 'images/ball2.svg';
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 

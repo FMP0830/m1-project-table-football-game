@@ -1,17 +1,18 @@
 class Defender {
-  constructor(canvas, x, speed) {
+  constructor(canvas, x, speed, sprite) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d");
+    this.ctx = canvas.getContext('2d');
     this.size = 80;
     this.x = x;
     this.y = canvas.height + this.size;
     this.direction = 1;
     this.speed = speed;
+    this.sprite = sprite;
   }
 
   draw() {
-    const img = document.createElement("img");
-    img.src = "images/defender.svg";
+    const img = document.createElement('img');
+    img.src = `images/defender${this.sprite}.svg`;
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
@@ -29,13 +30,13 @@ class Defender {
 }
 
 class Goalkeeper extends Defender {
-  constructor(canvas, x, speed) {
-    super(canvas, x, speed);
+  constructor(canvas, x, speed, sprite) {
+    super(canvas, x, speed, sprite);
   }
 
   draw() {
-    const img = document.createElement("img");
-    img.src = "images/goalie.svg";
+    const img = document.createElement('img');
+    img.src = `images/goalie${this.sprite}.svg`;
     this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
   }
 
@@ -55,7 +56,7 @@ class Goalkeeper extends Defender {
 class Goal {
   constructor(canvas) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d");
+    this.ctx = canvas.getContext('2d');
     this.height = 200;
     this.width = 80;
     this.x = this.canvas.width - 10;
@@ -64,7 +65,7 @@ class Goal {
 
   draw() {
     this.ctx.beginPath();
-    this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0)';
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
     this.ctx.stroke();
   }
