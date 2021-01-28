@@ -165,7 +165,7 @@ button:focus {
   position: absolute;
   float: left;
   left: 0;
-  bottom: 0;
+  bottom: -2vh;
   height: 10vh;
   width: 20vw;
 }
